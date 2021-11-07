@@ -1,3 +1,8 @@
+<?php
+
+var_dump($_POST);
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -191,7 +196,8 @@
   <section class="shop-page__order" hidden="">
     <div class="shop-page__wrapper">
       <h2 class="h h--1">Оформление заказа</h2>
-      <form action="#" method="post" class="custom-form js-order">
+  
+      <form action="order_create.php" method="post" class="custom-form js-order">
         <fieldset class="custom-form__group">
           <legend class="custom-form__title">Укажите свои личные данные</legend>
           <p class="custom-form__info">
@@ -211,7 +217,7 @@
               <p class="custom-form__input-label">Отчество</p>
             </label>
             <label class="custom-form__input-wrapper" for="phone">
-              <input id="phone" class="custom-form__input" type="tel" name="thirdName" required="">
+              <input id="phone" class="custom-form__input" type="tel" name="phone" required="">
               <p class="custom-form__input-label">Телефон <span class="req">*</span></p>
             </label>
             <label class="custom-form__input-wrapper" for="email">
@@ -285,8 +291,10 @@
           <legend class="custom-form__title custom-form__title--comment">Комментарии к заказу</legend>
           <textarea class="custom-form__textarea" name="comment"></textarea>
         </fieldset>
-        <button class="button" type="submit">Отправить заказ</button>
+        <button class="" type="submit">Отправить заказ</button>
+        
       </form>
+      
     </div>
   </section>
   <section class="shop-page__popup-end" hidden="">
