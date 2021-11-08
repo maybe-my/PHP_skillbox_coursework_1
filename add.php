@@ -132,17 +132,24 @@
         $('button').on('click', function() {
             var nameValue = $('input#product-name').val();
             var priceValue = $('input#product-price').val();
-            var imageValue = $('input#product-photo').val();
-
+            var file_data = $('#product-photo').prop('files')[0];
+            var form_data = new FormData();
+            form_data.append('product-photo', file_data);
+            form_data.append('product-name', nameValue);
+            form_data.append('product-price', priceValue);
+            alert(form_data);
             $.ajax({
-                method: "POST",
-                url: "add_tovar.php",
-                data: {
-                    name: nameValue,
-                    price: priceValue,
-                    photo: imageValue,
+                url: 'add_tovar.php', // <-- point to server-side PHP script
+                dataType: 'text',  // <-- what to expect back from the PHP script, if anything
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: 'post',
+                success: function(php_script_response){
+                    alert(php_script_response); // <-- display response from the PHP script, if any
                 }
-            })
+            });
         })
     });
     </script>

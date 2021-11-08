@@ -1,12 +1,25 @@
-<?php 
+<?php
 
 include 'db.php';
 
+// If upload button is clicked ...
+if (isset($_POST['upload'])) {
 
-$result = mysqli_query($connect, "SELECT * FROM tovars");
+    $filename = $_FILES["photo"]["name"];
+    $tempname = $_FILES["photo"]["tmp_name"];
+    $folder = "image/" . $filename;
 
-while ($row = $result->fetch_assoc()) {
-    $show_image = base64_encode($row['image']); ?>
-    <img src="data:image/jpeg;base64, <?= $show_image ?>" alt="">
-    <?php
+    // Get all the submitted data from the form
+    $sql = "INSERT INTO image (filename) VALUES ('$filename')";
+
+    // Execute query
+    mysqli_query($connect, $sql);
+
+    // Now let's move the uploaded image into the folder: image
+    if (move_uploaded_file($tempname, $folder)) {
+        $msg = "Image uploaded successfully";
+    } else {
+        $msg = "Failed to upload image";
+    }
 }
+$result = mysqli_query($db, "SELECT * FROM image");
