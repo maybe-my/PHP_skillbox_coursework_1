@@ -17,9 +17,16 @@ if (isset($_FILES["product-photo"])) {
         "name" => $_POST["product-name"],
         "price" => $_POST["product-price"],
         "category" => $_POST['product-category'],
+        "new" => $_POST['product-new'],
+        "sale" => $_POST['product-sale'],
         "image" => $filename
     ];
-    $sql = 'INSERT INTO tovars (name, price,category, image) VALUES ("' . $data['name'] . '", "' . $data['price'] . '",  "' . $data['category'] . '","' . $data['image'] . '")';
+    $sql = 'INSERT INTO tovars (name, price,category, is_new, is_sale,image) VALUES ("' . $data['name'] . '", 
+        "' . $data['price'] . '",  
+        "' . $data['category'] . '",
+        "' . $data['new'] . '",
+        "' . $data['sale'] . '",
+        "' . $data['image'] . '")';
 
     if (!$connect->query($sql) === TRUE) {
         echo "Error: " . $sql . "<br>" . $connect->error;
