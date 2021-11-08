@@ -81,9 +81,9 @@
                         <option value="access">Аксессуары</option>
                     </select>
                 </div>
-                <input type="checkbox" name="new" id="new" class="custom-form__checkbox">
+                <input type="checkbox" name="new" id="new" value='1' class="custom-form__checkbox">
                 <label for="new" class="custom-form__checkbox-label">Новинка</label>
-                <input type="checkbox" name="sale" id="sale" class="custom-form__checkbox">
+                <input type="checkbox" name="sale" id="sale" value='2' class="custom-form__checkbox">
                 <label for="sale" class="custom-form__checkbox-label">Распродажа</label>
             </fieldset>
             <button class="button" type="submit">Добавить товар</button>
@@ -93,6 +93,7 @@
         <section class="shop-page__popup-end page-add__popup-end" hidden="">
             <div class="shop-page__wrapper shop-page__wrapper--popup-end">
                 <h2 class="h h--1 h--icon shop-page__end-title">Товар успешно добавлен</h2>
+                <a href=""><p>Добавить новый товар</p></a>
             </div>
         </section>
     </main>
@@ -127,34 +128,7 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     
-    <script>
-    $(document).ready(function() {
-        $('button').on('click', function() {
-            var nameValue = $('input#product-name').val();
-            var priceValue = $('input#product-price').val();
-            var file_data = $('#product-photo').prop('files')[0];
-            var form_data = new FormData();
-            form_data.append('product-photo', file_data);
-            form_data.append('product-name', nameValue);
-            form_data.append('product-price', priceValue);
-            alert(form_data);
-            $.ajax({
-                url: 'add_tovar.php', // <-- point to server-side PHP script
-                dataType: 'text',  // <-- what to expect back from the PHP script, if anything
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: form_data,
-                type: 'post',
-                success: function(php_script_response){
-                    alert(php_script_response); // <-- display response from the PHP script, if any
-                }
-            });
-        })
-    });
-    </script>
-
-
+    <script src="js/add_tovar.js"></script>
 </body>
 
 </html>

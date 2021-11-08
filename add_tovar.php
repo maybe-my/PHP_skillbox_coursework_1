@@ -9,22 +9,19 @@ if (isset($_FILES["product-photo"])) {
     $folder = "tovarsImages/" . $filename;
 
     // Now let's move the uploaded image into the folder: image
-    if (move_uploaded_file($tempname, $folder)) {
-        $msg = "Image uploaded successfully";
-    } else {
+    if (!move_uploaded_file($tempname, $folder)) {
         $msg = "Failed to upload image";
     }
 
     $data = [
         "name" => $_POST["product-name"],
         "price" => $_POST["product-price"],
+        "category" => $_POST['product-category'],
         "image" => $filename
     ];
-    $sql = 'INSERT INTO tovars (name, price, image) VALUES ("' . $data['name'] . '", "' . $data['price'] . '", "' . $data['image'] . '")';
+    $sql = 'INSERT INTO tovars (name, price,category, image) VALUES ("' . $data['name'] . '", "' . $data['price'] . '",  "' . $data['category'] . '","' . $data['image'] . '")';
 
-    if ($connect->query($sql) === TRUE) {
-        echo "New record created successfully";
-    } else {
+    if (!$connect->query($sql) === TRUE) {
         echo "Error: " . $sql . "<br>" . $connect->error;
     }
 
