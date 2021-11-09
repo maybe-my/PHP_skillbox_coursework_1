@@ -34,17 +34,5 @@ if (isset($_FILES["product-photo"])) {
 
 }
 
-
 mysqli_close($connect);
 echo "good";
-
-
-// Test upload
-
-//if ( 0 < $_FILES['file']['error'] ) {
-//    echo 'Error: ' . $_FILES['file']['error'] . '<br>';
-//}
-//else {
-//    move_uploaded_file($_FILES['file']['tmp_name'], 'tovarsImages/' . $_FILES['file']['name']);
-//    echo 'Успешно: ' . $_POST['name'] ;
-//}

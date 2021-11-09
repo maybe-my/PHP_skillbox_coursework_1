@@ -166,7 +166,7 @@ if (isset($_GET['category'])) {
                         </tr>
                         <tr>
                             <td class="custom-table__head">Срок доставки: </td>
-                            <td class="date">13 декабря—15 декабря</td>
+                            <td class="date"><?= date("d") + 1; ?> декабря — <?php echo date("d") + 5; ?> декабря</td>
                         </tr>
                     </table>
                 </div>
