@@ -1,9 +1,20 @@
 <?php
 include 'db.php';
-if (isset($_GET['category'])) {
-    $sql = "SELECT * FROM tovars WHERE category='" . $_GET['category'] . "' LIMIT 9";
-} else {
-    $sql = "SELECT * FROM tovars LIMIT 9";
+
+
+$sql = "SELECT * FROM tovars LIMIT 9";
+
+
+// Пагинация
+
+
+// Сортировка
+if(isset($_GET['new']) && !isset($_GET['sale'])) {
+    $sql = "SELECT * FROM tovars WHERE is_new=1 LIMIT 9";
+} elseif (isset($_GET['sale']) && !isset($_GET['new'])) {
+    $sql = "SELECT * FROM tovars WHERE is_sale=1 LIMIT 9";
+} elseif (isset($_GET['sale']) && isset($_GET['new'])) {
+    $sql = "SELECT * FROM tovars WHERE is_new=1 AND is_sale=1 LIMIT 9";
 }
 
 ?>
@@ -12,7 +23,7 @@ if (isset($_GET['category'])) {
     <header class="intro">
         <div class="intro__wrapper">
             <h1 class=" intro__title">COATS</h1>
-            <p class="intro__info">Collection 2018</p>
+            <p class="intro__info">Collection 2021</p>
         </div>
     </header>
     <section class="shop container">
@@ -51,9 +62,13 @@ if (isset($_GET['category'])) {
                 </div>
 
                 <fieldset class="custom-form__group">
-                    <input type="checkbox" name="new" id="new" class="custom-form__checkbox">
+                    <input type="checkbox" name="new" id="new" class="custom-form__checkbox" <?php if (isset($_GET['new'])) {
+                        echo "checked";}?>>
                     <label for="new" class="custom-form__checkbox-label custom-form__info" style="display: block;">Новинка</label>
-                    <input type="checkbox" name="sale" id="sale" class="custom-form__checkbox">
+                    <input type="checkbox" name="sale" id="sale" class="custom-form__checkbox" <?php if (isset($_GET['sale'])) {
+                        echo "checked";
+}?>
+>
                     <label for="sale" class="custom-form__checkbox-label custom-form__info" style="display: block;">Распродажа</label>
                 </fieldset>
                 <button class="button" type="submit" style="width: 100%">Применить</button>
@@ -103,12 +118,13 @@ if (isset($_GET['category'])) {
                             <a class="paginator__item">1</a>
                         </li>
                         <li>
-                            <a class="paginator__item" href="">2</a>
+                            <a class="paginator__item" href="/?page=2">2</a>
                         </li>
                     </ul>
                 </div>
         <?php } ?>
     </section>
+    <!-- оформление заказа -->
     <section class="shop-page__order" hidden="">
         <div class="shop-page__wrapper">
             <h2 class="h h--1">Оформление заказа</h2>
@@ -220,6 +236,7 @@ if (isset($_GET['category'])) {
             <button class="button">Продолжить покупки</button>
         </div>
     </section>
+    <!-- !оформление заказа -->
 </main>
 
 
