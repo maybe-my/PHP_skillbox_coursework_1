@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -40,6 +41,16 @@
           <li>
             <a class="main-menu__item" href="delivery.html">Доставка</a>
           </li>
+          <?php if ($_SESSION['email']) { ?>
+            <li>
+              <a class="main-menu__item" href="products.php">Панель администратора</a>
+            </li>
+          <?php } else {
+            echo '
+            <li>
+              <a class="main-menu__item" href="authorization.php">Войти</a>
+            </li>';
+          } ?>
         </ul>
       </nav>
     </header>
