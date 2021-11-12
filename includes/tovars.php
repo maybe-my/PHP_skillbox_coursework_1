@@ -2,7 +2,7 @@
 include 'db.php';
 
 
-$sql = "SELECT * FROM tovars LIMIT 9";
+$sql = "SELECT * FROM tovars ORDER BY id DESC LIMIT 9";
 
 
 // Пагинация
@@ -10,11 +10,11 @@ $sql = "SELECT * FROM tovars LIMIT 9";
 
 // Сортировка
 if(isset($_GET['new']) && !isset($_GET['sale'])) {
-    $sql = "SELECT * FROM tovars WHERE is_new=1 LIMIT 9";
+    $sql = "SELECT * FROM tovars WHERE is_new=1 ORDER BY id DESC LIMIT 9";
 } elseif (isset($_GET['sale']) && !isset($_GET['new'])) {
-    $sql = "SELECT * FROM tovars WHERE is_sale=1 LIMIT 9";
+    $sql = "SELECT * FROM tovars WHERE is_sale=1 ORDER BY id DESC LIMIT 9";
 } elseif (isset($_GET['sale']) && isset($_GET['new'])) {
-    $sql = "SELECT * FROM tovars WHERE is_new=1 AND is_sale=1 LIMIT 9";
+    $sql = "SELECT * FROM tovars WHERE is_new=1 AND is_sale=1 ORDER BY id DESC LIMIT 9";
 }
 
 ?>
