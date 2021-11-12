@@ -51,7 +51,7 @@ if (!$_SESSION['email']){
 </main>
 
 <?php 
-mysqli_close();
+mysqli_close($connect);
 require 'includes/footer.php';
 
 }

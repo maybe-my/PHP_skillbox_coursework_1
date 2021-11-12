@@ -1,7 +1,5 @@
 <?php 
 session_start();
-$title = "Аккаунт";
-require 'includes/header.php';
 include 'db.php';
 
 // Выйти
@@ -11,35 +9,45 @@ if (isset($_POST['logoff'])) {
 
 // Вход
 if (isset($_POST['email'])) {
-  // Ищем в базе
-  $result = mysqli_query($connect, "SELECT * FROM users WHERE email='camib10959@d3ff.com'");
-  mysqli_close($connect);
+  $input_email = $_POST['email'];
+  $input_pass = $_POST['password'];
 
-  if ($_POST['email'] == 'camib10959@d3ff.com' && $_POST['password'] == '1234') {
-    $_SESSION['email'] = 'camib10959@d3ff.com';
-    $_SESSION['is_admin'] = true;
+  $result = mysqli_query($connect, "SELECT * FROM users WHERE email='$input_email' AND password='$input_pass'");
+  if ($result) {
+    $user = mysqli_fetch_array($result);
+    if (!empty($user['email'])) {
+      $_SESSION['email'] = $user['email'];
+    } else $error_msg = "Такой пользователь не найден!";
   }
+  
+  mysqli_close($connect);
 }
 
-if (!$_SESSION['email']) {
-  
+// Настройки страницы
+$title = "Аккаунт";
+require 'includes/header.php';
+if (!$_SESSION['email']) { 
 ?>
 
+<!-- Авторизация -->
 <main class="page-authorization">
   <h1 class="h h--1">Авторизация</h1>
-  <form class="custom-form" action="#" method="post">
+  <?php 
+    echo $error_msg;
+  ?>
+  <form class="custom-form" action="" method="post">
     <input type="email" placeholder="Email" class="custom-form__input" required="" value="<?= $_POST['email']; ?>" name="email">
     <input type="password" placeholder="Password" class="custom-form__input" required="" name="password">
     <button class="button" type="submit">Войти в личный кабинет</button>
   </form>
 </main>
 
-
+<!-- Для авторизированых -->
 <?php 
 } else { ?>
 <main class="page-authorization">
   <h1 class="h h--2">Вы уже авторизованный!</h1>
-  <form class="custom-form" action="#" method="post">
+  <form class="custom-form" action="authorization.php" method="post">
     <button class="button" type="submit" name="logoff">ВЫЙТИ</button>
   </form>
   <a href="products.php" class="button">Админ панель</a>
