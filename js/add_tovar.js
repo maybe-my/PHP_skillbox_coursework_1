@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    // Добавить товар
     $('button').on('click', function() {
         var nameValue = $('input#product-name').val(); // name
         var priceValue = $('input#product-price').val(); // price

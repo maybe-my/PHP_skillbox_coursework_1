@@ -1,7 +1,14 @@
 <?php 
 require 'db.php';
-
+$title = "Админ панель";
 require 'includes/header.php';
+
+
+// Удаление товара
+if (isset($_POST['deleteProduct'])) {
+  $sql = "DELETE from tovars WHERE id=" . $_POST['deleteProductId'];
+  $result = mysqli_query($connect, $sql);
+}
 
 // Проверка на адм
 session_start();
@@ -32,13 +39,20 @@ if (!$_SESSION['email']){
         <span class="product-item__field"><?= $row['category']; ?></span>
         <span class="product-item__field"><?php if($row['is_new'] == 1){ echo "Да";} else {echo "Нет";}; ?></span>
         <a href="add.html" class="product-item__edit" aria-label="Редактировать"></a>
-        <button class="product-item__delete"></button>
+
+        <form action="" method="post">
+          <input type="hidden" name="deleteProductId" id="input" class="form-control" value="<?php echo $row['id']; ?>">
+          <button name="deleteProduct" class="product-item__delete" type="submit"></button>
+        </form>
+        
       </li>
     <?php } } ?>
   </ul>
 </main>
 
 <?php 
+mysqli_close();
 require 'includes/footer.php';
 
-    }?>
+}
+?>

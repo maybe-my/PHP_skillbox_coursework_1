@@ -298,9 +298,9 @@ if (productsList) {
     const target = evt.target;
 
     if (target.classList && target.classList.contains('product-item__delete')) {
-
-      productsList.removeChild(target.parentElement);
-
+      if (confirm("Вы уверены что хотите удалить ?")){
+        productsList.removeChild(target.parentElement);
+      };
     }
 
   });

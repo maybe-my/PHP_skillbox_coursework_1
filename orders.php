@@ -1,8 +1,13 @@
 <?php
+session_start();
 require 'db.php';
+$title = "Список заказов";
 $sql = "SELECT * FROM orders;";
 require 'includes/header.php';
 
+if (!$_SESSION['email']) {
+    echo '<a class="page-products__button button" href="authorization.php">Авторизация</a>';
+} else {
 
 ?>
 
@@ -71,5 +76,6 @@ require 'includes/header.php';
   </ul>
 </main>
 <?php
+};
 require 'includes/footer.php';
 ?>

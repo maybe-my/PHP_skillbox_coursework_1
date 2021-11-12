@@ -1,5 +1,5 @@
 <?php 
-
+$title = "Главная страница";
 include 'includes/header.php';
 
 

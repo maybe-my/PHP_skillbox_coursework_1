@@ -1,5 +1,6 @@
 <?php 
 session_start();
+$title = "Аккаунт";
 require 'includes/header.php';
 include 'db.php';
 
@@ -12,7 +13,6 @@ if (isset($_POST['logoff'])) {
 if (isset($_POST['email'])) {
   // Ищем в базе
   $result = mysqli_query($connect, "SELECT * FROM users WHERE email='camib10959@d3ff.com'");
-  var_dump($result);
   mysqli_close($connect);
 
   if ($_POST['email'] == 'camib10959@d3ff.com' && $_POST['password'] == '1234') {
@@ -42,6 +42,7 @@ if (!$_SESSION['email']) {
   <form class="custom-form" action="#" method="post">
     <button class="button" type="submit" name="logoff">ВЫЙТИ</button>
   </form>
+  <a href="products.php" class="button">Админ панель</a>
 </main>
 
 <?php

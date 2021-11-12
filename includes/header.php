@@ -3,7 +3,7 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <title>Fashion</title>
+  <title><?php echo $title; ?> - Fashion</title>
 
   <meta name="description" content="Fashion - интернет-магазин">
   <meta name="keywords" content="Fashion, интернет-магазин, одежда, аксессуары">
@@ -33,13 +33,13 @@
             <a class="main-menu__item active" href="/">Главная</a>
           </li>
           <li>
-            <a class="main-menu__item" href="/?news=true">Новинки</a>
+            <a class="main-menu__item" href="index.php?new=on">Новинки</a>
           </li>
           <li>
-            <a class="main-menu__item "href="/?sale=true" >Sale</a>
+            <a class="main-menu__item "href="/?sale=on" >Sale</a>
           </li>
           <li>
-            <a class="main-menu__item" href="delivery.html">Доставка</a>
+            <a class="main-menu__item" href="delivery.php">Доставка</a>
           </li>
           <?php if ($_SESSION['email']) { ?>
             <li>
