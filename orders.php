@@ -2,8 +2,19 @@
 session_start();
 require 'db.php';
 $title = "Список заказов";
-$sql = "SELECT * FROM orders;";
+$sql = "SELECT * FROM orders ORDER BY order_status;";
 require 'includes/header.php';
+
+
+// Status order
+if (isset($_POST['StatusID'])) {
+  if ($_POST['StatusOrder'] == 1) {
+    $query = "UPDATE orders SET order_status=0 WHERE orders.id=" . $_POST['StatusID'];
+  } else {
+    $query = "UPDATE orders SET order_status=1 WHERE orders.id=" . $_POST['StatusID'];
+  }
+  mysqli_query($connect, $query);
+}
 
 if (!$_SESSION['email']) {
     echo '<a class="page-products__button button" href="authorization.php">Авторизация</a>';
@@ -18,9 +29,6 @@ if (!$_SESSION['email']) {
     
       if($result = $connect->query($sql)) {
         foreach($result as $row){
-          
-        
-
     ?>
     <li class="order-item page-order__item">
       <div class="order-item__wrapper">
@@ -53,8 +61,17 @@ if (!$_SESSION['email']) {
         </div>
         <div class="order-item__group order-item__group--status">
           <span class="order-item__title">Статус заказа</span>
-          <span class="order-item__info order-item__info--no">Не выполнено</span>
-          <button class="order-item__btn">Изменить</button>
+          <form action="" method="post">
+            <?php if ($row['order_status'] == 0) {
+              echo '<span class="order-item__info order-item__info--no">Не выполнено</span>';
+            } else { 
+              echo '<span class="order-item__info order-item__info--yes">Выполнено</span>';
+            } ?>
+            <input type="hidden" name="StatusID" id="inputStatusID" class="form-control" value="<?php echo $row['id'];?>">
+            <input type="hidden" name="StatusOrder" id="StatusOrder" class="form-control" value="<?php echo $row['order_status'];?>">
+            
+            <button type="submit" class="order-item__btn">Изменить</button> <!-- class  -->
+          </form>
         </div>
       </div>
       <div class="order-item__wrapper">
@@ -77,5 +94,6 @@ if (!$_SESSION['email']) {
 </main>
 <?php
 };
+mysqli_close($connect);
 require 'includes/footer.php';
 ?>
